@@ -36,16 +36,14 @@ object Build : BuildType({
     name = "Build"
 
     vcs {
-
         root(DslContext.settingsRoot)
     }
 
     steps {
         maven {
-
             name = "Maven Build"
             id = "Maven"
-            goals = "clean test"
+            goals = "clean package"
         }
     }
 
@@ -59,5 +57,3 @@ object Build : BuildType({
         }
     }
 })
-
-
