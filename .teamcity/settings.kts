@@ -30,12 +30,12 @@ version = "2024.12"
 project {
 
     buildType(Build)
-    buildType(FastTest)
+    buildType(Test)
     buildType(Package)
     sequential {
         buildType(Build)
         parallel {
-            buildType(FastTest)
+            buildType(Test)
              }
         buildType(Package)
     }
@@ -67,8 +67,8 @@ object Build : BuildType({
     }
 })
 
-object FastTest : BuildType({
-    name = "Fast Test"
+object Test : BuildType({
+    name = "Test"
 
     vcs {
         root(DslContext.settingsRoot)
