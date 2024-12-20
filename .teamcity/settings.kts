@@ -52,7 +52,7 @@ object Build : BuildType({
         maven {
             name = "Maven Build"
             id = "Maven"
-            goals = "clean compile"
+            goals = "clean build"
         }
     }
 
