@@ -41,7 +41,7 @@ object Build : BuildType({
 
     steps {
         maven {
-            val goalname = "clean package"
+            val goalname = "clean test"
             name = "Maven Build"
             id = "Maven"
             goals = goalname
