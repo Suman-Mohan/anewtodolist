@@ -30,6 +30,11 @@ version = "2024.12"
 project {
 
     buildType(Build)
+    buildType(Package)
+    sequential {
+        buildType(Build)
+        buildType(Package)
+    }
 }
 
 object Build : BuildType({
@@ -41,13 +46,38 @@ object Build : BuildType({
 
     steps {
         maven {
-            val goalname = "clean test"
             name = "Maven Build"
             id = "Maven"
-            goals = goalname
+            goals = "clean compile"
         }
     }
 
+//    triggers {
+//        vcs {
+//        }
+//    }
+
+    features {
+        perfmon {
+        }
+    }
+})
+object Package : BuildType({
+    name = "Package"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        maven {
+            name = "Maven Build"
+            id = "Maven"
+            goals = "clean package"
+        }
+    }
+
+//    dependencies { snapshot(Build) {} }
     triggers {
         vcs {
         }
