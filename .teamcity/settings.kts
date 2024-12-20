@@ -30,9 +30,13 @@ version = "2024.12"
 project {
 
     buildType(Build)
+    buildType(FastTest)
     buildType(Package)
     sequential {
         buildType(Build)
+        parallel {
+            buildType(FastTest)
+             }
         buildType(Package)
     }
 }
@@ -49,6 +53,32 @@ object Build : BuildType({
             name = "Maven Build"
             id = "Maven"
             goals = "clean compile"
+        }
+    }
+
+//    triggers {
+//        vcs {
+//        }
+//    }
+
+    features {
+        perfmon {
+        }
+    }
+})
+
+object FastTest : BuildType({
+    name = "Fast Test"
+
+    vcs {
+        root(DslContext.settingsRoot)
+    }
+
+    steps {
+        maven {
+            name = "Maven Build"
+            id = "Maven"
+            goals = "clean test"
         }
     }
 
